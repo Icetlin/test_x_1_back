@@ -1,0 +1,123 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>{% block title %}Административная панель{% endblock %}</title>
+    <style>
+        body {
+            background-color: #0b1522;
+            color: #d9e9f8;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            margin: 0;
+            padding: 0;
+        }
+
+        .container {
+            max-width: 800px;
+            margin: 0 auto;
+            padding: 40px;
+            text-align: center;
+        }
+
+        h1 {
+            color: #7aa4c1;
+            text-shadow: 1px 1px 2px rgba(0, 0, 0, 0.3);
+        }
+
+        form {
+            margin-bottom: 40px;
+        }
+
+        select, input[type="number"], button {
+            padding: 10px 20px;
+            font-size: 16px;
+            border-radius: 4px;
+            border: none;
+            background-color: #192c3e;
+            color: #d9e9f8;
+            box-shadow: inset 0 0 5px rgba(0, 0, 0, 0.3);
+        }
+
+        button {
+            background-color: #7aa4c1;
+            color: #0b1522;
+            cursor: pointer;
+            transition: background-color 0.3s ease;
+        }
+
+        button:hover {
+            background-color: #5c8aa7;
+        }
+
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            box-shadow: 0 0 20px rgba(0, 0, 0, 0.3);
+        }
+
+        th, td {
+            padding: 15px;
+            text-align: left;
+            border-bottom: 1px solid #192c3e;
+        }
+
+        th {
+            background-color: #192c3e;
+            color: #7aa4c1;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+        }
+
+        a {
+            color: #7aa4c1;
+            text-decoration: none;
+            transition: color 0.3s ease;
+        }
+
+        a:hover {
+            color: #5c8aa7;
+            text-decoration: underline;
+        }
+    </style>
+</head>
+<body>
+<div class="container">
+    {% block body %}
+        <h1>Административная панель</h1>
+
+        <form action="/admin/run_parser" method="get">
+            <select name="source">
+                {% for name, site in sites %}
+                    <option value="{{ name }}">{{ site }}</option>
+                {% endfor %}
+            </select>
+
+            <input type="number" name="count" placeholder="Количество новостей" value="15">
+            <button type="submit">Запуск</button>
+        </form>
+
+        {% block content %}
+            <h1>Спарсенные новости</h1>
+
+            <table>
+                <thead>
+                <tr>
+                    <th>Rating</th>
+                    <th>Name</th>
+                    <th>URL</th>
+                </tr>
+                </thead>
+                <tbody>
+                {% for news in news %}
+                    <tr>
+                        <td>{{ news.rating }}</td>
+                        <td>{{ news.name }}</td>
+                        <td><a href="{{ news.url }}">{{ news.url }}</a></td>
+                    </tr>
+                {% endfor %}
+                </tbody>
+            </table>
+        {% endblock %}
+    {% endblock %}
+</div>
+</body>
+</html>

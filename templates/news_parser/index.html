@@ -1,0 +1,14 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>News Parser</title>
+</head>
+<body>
+{% for news_item in news %}
+<div>
+    {{ news_item|raw }}
+</div>
+{% endfor %}
+
+</body>
+</html>
