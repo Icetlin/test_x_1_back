@@ -94,7 +94,6 @@ class ParsedNewsController extends AbstractController
         methods: ['DELETE']
     )]
     public function deleteNews(
-        Request $request,
         int $id,
         ParsedNewsRepository $parsedNewsRepository
     ): Response
