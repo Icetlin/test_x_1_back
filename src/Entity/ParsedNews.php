@@ -44,6 +44,12 @@ class ParsedNews
         return $this->rating;
     }
 
+    public function setRating(int $rating): self
+    {
+        $this->rating = $rating;
+        return $this;
+    }
+
     public function __construct()
     {
         $this->rating = mt_rand(1, 10);
